@@ -1,0 +1,1043 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+		<title>人体测试</title>
+		<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
+		<link rel="stylesheet" type="text/css" href="css/bootstrap-theme.min.css" />
+		<style type="text/css">
+			html,
+			body {
+				font-family: "微软雅黑";
+				height: 100%;
+			}
+			
+			.container {
+				position: relative;
+				height: 100%;
+			}
+			
+			.header {
+				position: relative;
+				padding-left: 40px;
+				overflow: hidden;
+				width: 100%;
+				background-color: rgba(0, 191, 255, 0.2);
+			}
+			
+			.form-group {
+				position: absolute;
+				width: 30%;
+				margin-top: 5px;
+				margin-bottom: 10px;
+			}
+			
+			label {
+				font-size: 20px;
+			}
+			
+			.dengour {
+				border-color: red;
+				box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px rgba(255, 0, 0, 0.6);
+			}
+			
+			.form-control {
+				width: 100%;
+			}
+			
+			.test-result {
+				display: none;
+				height: 780px;
+				position: relative;
+				width: 100%;
+				top: 30px;
+				background-color: #fff;
+				background-image: none;
+				border: 1px solid #ccc;
+				border-radius: 4px;
+			}
+			
+			.table {
+				margin-top: 20px;
+				margin-bottom: 10px;
+			}
+			
+			.table-hover> tbody>tr:hover {
+				background-color: rgba(0, 191, 255, 0.1);
+			}
+			
+			.test-info {
+				display: none;
+				overflow: hidden;
+				background-color: #fff;
+				background-image: none;
+				border: 1px solid #ccc;
+				border-radius: 4px;
+				height: 283px;
+				position: relative;
+				width: 100%;
+				top: 10px;
+			}
+			
+			.test {
+				position: relative;
+				margin-top: 10px;
+				width: 100%;
+				height: 37px;
+				font-size: 20px;
+				border-bottom: 1px solid #ccc;
+			}
+			
+			.name-text,
+			.ID-text,
+			.time-text,
+			.gender-text,
+			.age-text,
+			.height-text {
+				margin-left: 20px;
+				font-size: 16px;
+			}
+			
+			.name-value,
+			.ID-value,
+			.time-value,
+			.gender-value,
+			.age-value,
+			.height-value {
+				margin-left: 20px;
+			}
+			
+			h3 {
+				text-align: center;
+			}
+			
+			.body-style {
+				font-size: 0;
+				position: relative;
+				margin: 0;
+				width: 101%;
+				height: 143px;
+				border-top: 1px solid #ccc;
+			}
+			
+			.bodytype {
+				margin: 0;
+				border-right: 1px solid #ccc;
+				border-bottom: 1px solid #ccc;
+				display: inline-block;
+				vertical-align: middle;
+				position: relative;
+				width: 33.3333%;
+				height: 33%;
+				line-height: 43px;
+				font-size: 16px;
+				text-align: center;
+			}
+			
+			.checked {
+				background-color: #00bfff;
+				color: #fff;
+			}
+			
+			.ID-value {
+				margin-left: 51px;
+			}
+			/*#searchBtn {
+				margin-left: 70px;
+			}*/
+			
+			ul {
+				margin: 0;
+				padding: 0;
+			}
+			
+			li {
+				float: left;
+				list-style: none;
+				font-weight: bold;
+				font-size: 24px;
+				color: #00BFFF;
+				cursor: pointer;
+			}
+			
+			.h2small:hover,
+			li:hover {
+				color: #C0C0C0;
+			}
+			
+			.li2 {
+				margin-left: 20px;
+			}
+			
+			.h2small {
+				font-size: 20px;
+				color: #333;
+			}
+			
+			h3 {
+				margin-top: 10px;
+			}
+			
+			.conver {
+				position: absolute;
+				top: 0;
+				left: 0;
+				right: 0;
+				bottom: 0;
+				background-color: rgba(0, 0, 0, 0.5);
+				z-index: 2000;
+			}
+			
+			.icon {
+				width: 200px;
+				height: 50px;
+				position: absolute;
+				top: 50%;
+				left: 50%;
+				margin-left: -100px;
+				margin-top: -25px;
+				background-color: rgba(0, 0, 0, 0.5);
+				text-align: right;
+				font-size: 20px;
+				line-height: 50px;
+				padding-right: 10px;
+				-webkit-border-radius: 4px;
+				border-radius: 4px;
+				color: #fff;
+			}
+			
+			#loading {
+				display: block;
+				position: absolute;
+				top: 17px;
+				left: 15px;
+				-webkit-animation: loading linear 1s infinite;
+				-moz-animation: loading linear 1s infinite;
+				-ms-animation: loading linear 1s infinite;
+				-o-animation: loading linear 1s infinite;
+				animation: loading linear 1s infinite;
+			}
+			
+			@-webkit-keyframes loading {
+				0% {
+					-webkit-transform: rotateZ(0deg);
+					-moz-transform: rotateZ(0deg);
+					-ms-transform: rotateZ(0deg);
+					-o-transform: rotateZ(0deg);
+					transform: rotateZ(0deg);
+				}
+				100% {
+					-webkit-transform: rotateZ(360deg);
+					-moz-transform: rotateZ(360deg);
+					-ms-transform: rotateZ(360deg);
+					-o-transform: rotateZ(360deg);
+					transform: rotateZ(360deg);
+				}
+			}
+			
+			@-moz-keyframes loading {
+				0% {
+					-webkit-transform: rotateZ(0deg);
+					-moz-transform: rotateZ(0deg);
+					-ms-transform: rotateZ(0deg);
+					-o-transform: rotateZ(0deg);
+					transform: rotateZ(0deg);
+				}
+				100% {
+					-webkit-transform: rotateZ(360deg);
+					-moz-transform: rotateZ(360deg);
+					-ms-transform: rotateZ(360deg);
+					-o-transform: rotateZ(360deg);
+					transform: rotateZ(360deg);
+				}
+			}
+			
+			@-ms-keyframes loading {
+				0% {
+					-webkit-transform: rotateZ(0deg);
+					-moz-transform: rotateZ(0deg);
+					-ms-transform: rotateZ(0deg);
+					-o-transform: rotateZ(0deg);
+					transform: rotateZ(0deg);
+				}
+				100% {
+					-webkit-transform: rotateZ(360deg);
+					-moz-transform: rotateZ(360deg);
+					-ms-transform: rotateZ(360deg);
+					-o-transform: rotateZ(360deg);
+					transform: rotateZ(360deg);
+				}
+			}
+			
+			@-o-keyframes loading {
+				0% {
+					-webkit-transform: rotateZ(0deg);
+					-moz-transform: rotateZ(0deg);
+					-ms-transform: rotateZ(0deg);
+					-o-transform: rotateZ(0deg);
+					transform: rotateZ(0deg);
+				}
+				100% {
+					-webkit-transform: rotateZ(360deg);
+					-moz-transform: rotateZ(360deg);
+					-ms-transform: rotateZ(360deg);
+					-o-transform: rotateZ(360deg);
+					transform: rotateZ(360deg);
+				}
+			}
+			
+			@keyframes loading {
+				0% {
+					-webkit-transform: rotateZ(0deg);
+					-moz-transform: rotateZ(0deg);
+					-ms-transform: rotateZ(0deg);
+					-o-transform: rotateZ(0deg);
+					transform: rotateZ(0deg);
+				}
+				100% {
+					-webkit-transform: rotateZ(360deg);
+					-moz-transform: rotateZ(360deg);
+					-ms-transform: rotateZ(360deg);
+					-o-transform: rotateZ(360deg);
+					transform: rotateZ(360deg);
+				}
+			}
+			
+			.tips-de {
+				margin-left: 20px;
+				font-size: 14px;
+				font-weight: 100;
+				color: red;
+			}
+			
+			.connectline {
+				position: relative;
+				width: 100%;
+				height: 100px;
+				border-radius: 4px;
+				margin-top: 5px;
+			}
+			
+			.btn-style {
+				font-size: 24px;
+				width: 300px;
+				height: 45px;
+				margin-top: 20px;
+			}
+			
+			.dropdown-menu {
+				width: 100%;
+			}
+			
+			.dropdown-menu li {
+				width: 100%;
+				list-style: none;
+				font-weight: bold;
+				font-size: 24px;
+				color: #00BFFF;
+				cursor: pointer;
+				text-align: center;
+			}
+			
+			.submit {
+				position: absolute;
+				top: 20px;
+				left: 350px;
+				width: 300px;
+				height: 45px;
+				font-size: 24px;
+				line-height: 45px;
+				padding: 0;
+			}
+			
+			.inputInfo {
+				height: 170px;
+				position: relative;
+			}
+			
+			.partA {
+				top: 0;
+				left: 0;
+			}
+			
+			.partB {
+				top: 0;
+				left: 32%;
+			}
+			
+			.partC {
+				top: 0;
+				left: 64%;
+			}
+			
+			.partD {
+				top: 80px;
+				left: 0;
+			}
+			
+			.partE {
+				top: 80px;
+				left: 32%;
+			}
+			
+			.radioA {
+				position: absolute;
+				top: 35px;
+				left: 0px;
+			}
+			
+			.radioB {
+				position: absolute;
+				top: 35px;
+				left: 60px;
+			}
+			
+			#submitBtn {
+				left: 50%;
+				position: absolute;
+				top: 106px;
+				width: 150px;
+			}
+			
+			#unconnect {
+				width: 200px;
+				left: 662px;
+			}
+			
+			.connectStatus {
+				position: absolute;
+				color: red;
+				bottom: 10px;
+				right: 30px;
+			}
+			
+			.noticeA {
+				position: absolute;
+				top: 70px;
+				font-size: 16px;
+				left: 350px;
+				color: red;
+			}
+			
+			.noticeB {
+				position: absolute;
+				top: 106px;
+				left: 770px;
+				color: red;
+				font-size: 16px;
+				width: 200px;
+			}
+			
+			.test-info-partA {
+				position: absolute;
+				top: 0;
+				left: 0;
+				width: 50%;
+				border-right: 1px solid #ccc;
+			}
+			
+			.test-info-partB {
+				position: absolute;
+				top: 0;
+				right: 0;
+				width: 50%;
+			}
+			@media (max-width: 767px) {
+				.noticeB {
+					left: 530px;
+				}
+			}
+			@media (min-width: 768px) {
+				.noticeB {
+					left: 530px;
+				}
+			}
+			@media (min-width: 992px) {
+				.noticeB {
+					left: 650px;
+				}
+			}
+			@media (min-width: 1200px){
+				.noticeB {
+					left: 770px;
+				}
+			}
+			
+			
+			
+		</style>
+	</head>
+
+	<body>
+		<!--<div class="conver">
+			<div class="icon">
+				<span id="loading" class="glyphicon glyphicon-refresh">
+				</span> 正在检测。。。
+			</div>
+		</div>-->
+		<div class="container">
+
+			<div class="header">
+				<div class="connectStatus">
+
+				</div>
+				<ul>
+					<!--<li class="li1">    
+						<h1><font class="h1 h2small" onclick="pageTurn('m')">机器连接</font></h1></li>-->
+					<li class="li1">
+						<h1><font class="h1 " onclick="pageTurn('i')">人体测试</font></h1></li>
+					<li class="li2">
+						<h1><font class="h1 h2small" onclick="pageTurn('s')">用户查询</font></h1></li>
+				</ul>
+			</div>
+			<div class="connectline">
+				<div class="btn-group">
+					<button type="button" class="btn btn-info dropdown-toggle btn-style" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+     					选择机器类型 
+     					<span class="caret"></span>
+  					</button>
+					<ul class="dropdown-menu">
+					</ul>
+				</div>
+				<div id="connectLine" class="btn btn-info submit">
+					连接
+				</div>
+				<div id="unconnect" class="btn btn-danger submit">
+					取消连接
+				</div>
+				<div class="noticeA">
+					注意：连接时请确保机器处于空闲状态。
+				</div>
+			</div>
+			<div class="inputInfo">
+				<div class="form-group partA">
+					<label for="exampleInputEmail1">编号</label><label class="tips-de" id="bhtips"></label>
+					<input type="tel" class="form-control " id="exampleInputEmail1" placeholder="编号" onblur="checkBH()">
+				</div>
+				<div class="form-group partB">
+					<label for="exampleInputEmail1">姓名</label><label class="tips-de" id="xmtips"></label>
+					<input type="text" class="form-control " id="exampleInputName1" placeholder="姓名" onblur="checkXM()">
+				</div>
+				<div class="form-group partC">
+					<label for="exampleInputPassword1">年份</label><label class="tips-de" id="nltips"></label>
+					<input type="text" class="form-control" id="exampleInputPassword1" maxlength="4" placeholder="年份" onblur="checkNL()">
+				</div>
+				<div class="form-group partD">
+					<label for="exampleInputPassword1">身高</label><label class="tips-de" id="sgtips"></label>
+					<input type="tel" class="form-control" id="exampleInputtext1" maxlength="4" placeholder="身高" onblur="checkSG()">
+				</div>
+				<div class="form-group partE" id="Genderitem">
+					<label for="exampleInputPassword1">性别</label>
+				</div>
+				<button id="submitBtn" class="btn btn-info btn-lg">开始测试</button>
+				<!--<button id="searchBtn" class="btn btn-info btn-lg">查询用户</button>-->
+				<div class="noticeB">
+					注意：开始测试前请先确保测试者正确站立在机器上。
+				</div>
+			</div>
+			<div class="test-info">
+				<div class="test-info-partA">
+					<div class="test test-ID">
+						<span class="ID-text">编号</span>
+						<span class="ID-value"></span>
+					</div>
+					<div class="test test-time">
+						<span class="time-text">测量时间</span>
+						<span class="time-value"></span>
+					</div>
+					<div class="test test-name">
+						<span class="name-text">用户名称</span>
+						<span class="name-value"></span>
+					</div>
+					<div class="test test-gender">
+						<span class="gender-text">测量性别</span>
+						<span class="gender-value"></span>
+					</div>
+					<div class="test test-age">
+						<span class="age-text">测量年龄</span>
+						<span class="age-value"></span>
+					</div>
+					<div class="test test-height">
+						<span class="height-text">测量身高</span>
+						<span class="height-value"></span>
+					</div>
+				</div>
+				<div class="test-info-partB">
+					<h3>体型判定</h3>
+					<div class="body-style">
+						<div id="type1" class="bodytype">
+							隐形肥胖型
+						</div>
+						<div id="type2" class="bodytype">
+							脂肪过多型
+						</div>
+						<div id="type3" class="bodytype">
+							肥胖型
+						</div>
+						<div id="type4" class="bodytype">
+							肌肉不足型
+						</div>
+						<div id="type5" class="bodytype">
+							健康均称型
+						</div>
+						<div id="type6" class="bodytype">
+							超重肌肉型
+						</div>
+						<div id="type7" class="bodytype">
+							消瘦型
+						</div>
+						<div id="type8" class="bodytype">
+							低脂肪型
+						</div>
+						<div id="type9" class="bodytype">
+							运动员型
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="test-result table-responsive">
+				<table class="table table-hover">
+					<thead>
+						<tr>
+							<th>序号</th>
+							<th>项目</th>
+							<th>测量值</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<th scope="row">1</th>
+							<td>体重</td>
+							<td id="weight"></td>
+						</tr>
+						<tr>
+							<th scope="row">2</th>
+							<td>去脂体重</td>
+							<td id="slimWeight"></td>
+						</tr>
+						<tr>
+							<th scope="row">3</th>
+							<td>体脂肪量</td>
+							<td id="fat"></td>
+						</tr>
+						<tr>
+							<th scope="row">4</th>
+							<td>肌肉量</td>
+							<td id="muscle"></td>
+						</tr>
+						<tr>
+							<th scope="row">5</th>
+							<td>骨质量</td>
+							<td id="bone"></td>
+						</tr>
+						<tr>
+							<th scope="row">6</th>
+							<td>蛋白质</td>
+							<td id="protein"></td>
+						</tr>
+						<tr>
+							<th scope="row">7</th>
+							<td>身体水分</td>
+							<td id="bodywater"></td>
+						</tr>
+						<tr>
+							<th scope="row">8</th>
+							<td>体脂百分比</td>
+							<td id="ratioFat"></td>
+						</tr>
+						<tr>
+							<th scope="row">9</th>
+							<td>体质指数</td>
+							<td id="BMI"></td>
+						</tr>
+						<tr>
+							<th scope="row">10</th>
+							<td>腰臀比</td>
+							<td id="ratioHip"></td>
+						</tr>
+						<tr>
+							<th scope="row">11</th>
+							<td>内脏脂肪</td>
+							<td id="internalFat"></td>
+						</tr>
+						<tr>
+							<th scope="row">12</th>
+							<td>控制脂肪</td>
+							<td id="fatControl"></td>
+						</tr>
+						<tr>
+							<th scope="row">13</th>
+							<td>标准体重</td>
+							<td id="criteriaWeight"></td>
+						</tr>
+						<tr>
+							<th scope="row">14</th>
+							<td>控制肌肉</td>
+							<td id="muscleControl"></td>
+						</tr>
+						<tr>
+							<th scope="row">15</th>
+							<td>控制体重</td>
+							<td id="weightControl"></td>
+						</tr>
+						<tr>
+							<th scope="row">16</th>
+							<td>生理年龄</td>
+							<td id="bodyAge"></td>
+						</tr>
+						<tr>
+							<th scope="row">17</th>
+							<td>基础代谢</td>
+							<td id="baseMetabolize"></td>
+						</tr>
+						<tr>
+							<th scope="row">18</th>
+							<td>健康评分</td>
+							<td id="score"></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+		<script src="js/config.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/jquery.1.11.3.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			var checkvalue = "inlineRadio1";
+			var BH = false;
+			var NL = false;
+			var SG = false;
+			var XM = false;
+			var connet = false;
+			$(function() {
+				$(".connectStatus").html("当前人体测试机连接状态：断开")
+					//				//刷新页面取消主控
+					//				quxiaozhukong()
+					//第一步获得选择机器型号类型
+				getMarchineType();
+				//连接
+				$("#connectLine").on("click", function() {
+					if($(".btn-style").html().indexOf("选择机器类型") == -1) {
+						creatDiv()
+						$.ajax({
+							type: "post",
+							dataType: "json",
+							url: localWebUrl + "json/openSerical.htm",
+							data: {
+								"port": $(".btn-style").html()
+							},
+							success: function(data) {
+								console.log(data);
+								removeDiv();
+								if(data.status == "1") {
+									$(".connectStatus").html("当前人体测试机连接状态：连接成功")
+									alert(data.msg);
+									connet = true;
+								} else if(data.status == "2") {
+									$(".connectStatus").html("当前人体测试机连接状态：断开")
+									alert(data.msg)
+								} else {
+									$(".connectStatus").html("当前人体测试机连接状态：断开")
+									alert(data.msg)
+								}
+							},
+							error: function(XMLHttpRequest, textStatus, errorThrown) {},
+						});
+					} else {
+						alert("先选择机器类型")
+					}
+				});
+				//取消主控unconnect
+				$("#unconnect").on("click", function() {
+					quxiaozhukong()
+				});
+
+				function returnType() {
+					console.log($(this))
+				}
+				$("input").val("")
+				$('<label class="radio-inline radioA"><input type="radio" checked="true"  name="Gender" id="inlineRadio1" value="option1">男</label><label class="radio-inline radioB"><input type="radio" name="Gender" id="inlineRadio2" value="option2">女</label>').appendTo($("#Genderitem"))
+				$("#inlineRadio1").attr("checked", "true")
+				$("#submitBtn").on("click", function() {
+					var num1 = $("#exampleInputEmail1").val().trim();
+					var num2 = $("#exampleInputName1").val().trim();
+					var num3 = $("#exampleInputPassword1").val().trim();
+					var num4 = $("#exampleInputtext1").val().trim();
+					if(BH == false) {
+						$("#bhtips").html("(请填入正确的编号!)")
+						return false
+					}
+					if(NL == false) {
+						$("#nltips").html("(请填入正确的年龄!)")
+						return false
+					}
+					if(SG == false) {
+						$("#sgtips").html("(请填入正确的身高!)")
+						return false
+					}
+					if(XM == false) {
+						$("#xmtips").html("(请填入正确的姓名!)")
+						return false
+					}
+					if(checkvalue == "inlineRadio1") {
+						getInfo(num1, num2, num3, num4, "0")
+					} else {
+						getInfo(num1, num2, num3, num4, "1")
+					}
+				})
+				$("#inlineRadio1,#inlineRadio2").on("click", function() {
+					checkvalue = $("input[name='Gender']:checked").attr("id")
+					console.log(checkvalue)
+				})
+			});
+			//请求数据
+			//第一次获得数据
+			function getMarchineType() {
+				$.ajax({
+					type: "post",
+					dataType: "json",
+					url: localWebUrl + "json/getIndex.htm",
+					data: {},
+					success: function(data) {
+						console.log(data)
+						var FA = $(".dropdown-menu")
+						for(var i = 0; i < data.length; i++) {
+							console.log(data[i])
+							$("<li><a  id='" + data[i] + "'>" + data[i] + "</a><li>").appendTo(FA)
+							$("#" + data[i]).on("click", function() {
+								$(".btn-style").html($(this).attr("id"))
+							})
+						}
+					},
+					error: function(XMLHttpRequest, textStatus, errorThrown) {},
+				});
+			}
+
+			function getInfo(num1, num2, num3, num4, gender) {
+				if(connet == false) {
+					alert("请先连接机器！")
+					return false
+				}
+				creatDiv()
+				$.ajax({
+					type: "post",
+					dataType: "json",
+					url: localWebUrl + "json/startTest.htm",
+					data: {
+						'userNo': num1,
+						'userName': num2,
+						"sex": gender,
+						"height": num4,
+						"birthday": num3,
+					},
+					success: function(data) {
+						removeDiv()
+						if(data.status == 0) {
+							console.log(JSON.stringify(data));
+							alert(data.msg);
+						} else if(data.status == 2) {
+							$(".connectStatus").html("当前人体测试机连接状态：断开");
+							alert(data.msg);
+						} else {
+							$(".test-info").css("display","block");
+							$(".test-result").css("display","block");
+							var datas = data.body
+								//用户ID
+							$(".ID-value").html(datas.user.userNo);
+							//测量时间
+							$(".time-value").html(datas.time);
+								//用户名称
+							$(".name-value").html(datas.user.userName);
+							//用户性别
+							if(datas.user.sex == 0) {
+								$(".gender-value").html("男性");
+							} else {
+								$(".gender-value").html("女性");
+							}
+							//用户年纪
+							$(".age-value").html(datas.data.age);
+							//用户身高
+							$(".height-value").html(datas.user.height + "cm");
+								//体型判断
+							$(".checked").removeClass("checked");
+							$("#type" + datas.user.bodyConfirm).addClass("checked");
+								//--------------
+								//体重
+							$("#weight").html(datas.data.weight + "kg");
+							//去脂体重
+							$("#slimWeight").html(((datas.data.weight) * 1 - (datas.data.fat) * 1).toFixed(1) + "kg");
+								//体脂肪量
+							$("#fat").html(datas.data.fat + "kg");
+								//肌肉量
+							$("#muscle").html(datas.data.muscle + "kg")
+								//骨质量
+							$("#bone").html(datas.data.bone + "kg")
+								//蛋白质
+							$("#protein").html(datas.data.protein + "kg")
+								//身体水分
+							$("#bodywater").html(((datas.data.interFluid) * 1 + (datas.data.outFluid) * 1).toFixed(1) + "kg")
+								//体脂百分比
+							$("#ratioFat").html(datas.data.ratioFat + "%")
+								//体质指数
+							$("#BMI").html(datas.data.bmi+"BMI")
+								//腰臀比
+							$("#ratioHip").html(datas.data.ratioHip)
+								//内脏脂肪internalFat
+							$("#internalFat").html(datas.data.internalFat + "VFI")
+								//控制脂肪fatControl
+							$("#fatControl").html(datas.data.fatControl + "kg")
+
+							//标准体重criteriaWeight
+							$("#criteriaWeight").html(datas.data.criteriaWeight + "kg")
+								//控制体重weightControl
+							$("#weightControl").html(datas.data.weightControl + "kg")
+								//基础代谢baseMetabolize
+							$("#baseMetabolize").html(datas.data.baseMetabolize + "cal")
+								//健康评分score
+							$("#score").html(datas.data.score)
+								//控制肌肉muscleControl
+							$("#muscleControl").html(datas.data.muscleControl + "kg")
+								//生理年纪bodyAge
+							$("#bodyAge").html(datas.data.bodyAge + "岁")
+						}
+					},
+					error: function(XMLHttpRequest, textStatus, errorThrown) {
+
+					},
+				});
+			}
+
+			function testNL(num) {
+				var regA = /^[1][9]\d{2}$/;
+				var regB = /^[2][0]\d{2}$/;
+				if(regA.test(num) || regB.test(num)) {
+					return true;
+				} else {
+					return false;
+				}
+			}
+			//对数字做验证
+			function testnum(num) {
+				console.log(num)
+				var reg = /^[0-9]*$/
+				console.log(reg.test(num))
+				if(reg.test(num)) {
+					return true;
+				} else {
+					return false;
+				}
+			};
+
+			function checkBH() {
+				$("#exampleInputEmail1").removeClass("dengour")
+				var input1 = $("#exampleInputEmail1").val().trim();
+				if(input1.length == 0) {
+					$("#bhtips").html("(编号不能为空!)")
+					$("#exampleInputEmail1").addClass("dengour")
+					BH = false
+				} else {
+					if(testnum(input1)) {
+						$("#bhtips").html("")
+						BH = true
+					} else {
+						$("#bhtips").html("(编号需为数字!)")
+						$("#exampleInputEmail1").addClass("dengour")
+						BH = false
+					}
+				}
+			};
+
+			function checkSG() {
+				$("#exampleInputtext1").removeClass("dengour")
+				var input1 = $("#exampleInputtext1").val().trim();
+				if(input1.length == 0) {
+					$("#sgtips").html("(身高不能为空!)")
+					$("#exampleInputtext1").addClass("dengour")
+					SG = false
+				} else {
+					if(testnum(input1)) {
+						$("#sgtips").html("")
+						SG = true
+					} else {
+						$("#sgtips").html("(身高需为数字!)")
+						$("#exampleInputtext1").addClass("dengour")
+						SG = false
+					}
+				}
+			};
+
+			function checkXM() {
+				$("#exampleInputName1").removeClass("dengour")
+				var input1 = $("#exampleInputName1").val().trim();
+				if(input1.length == 0) {
+					$("#xmtips").html("(姓名不能为空!)")
+					$("#exampleInputName1").addClass("dengour")
+					XM = false
+				} else {
+					XM = true
+					$("#xmtips").html("")
+				}
+			}
+
+			function checkNL() {
+				$("#exampleInputPassword1").removeClass("dengour")
+				var input1 = $("#exampleInputPassword1").val().trim();
+				if(input1.length == 0) {
+					$("#nltips").html("(年份不能为空!)")
+					$("#exampleInputPassword1").addClass("dengour")
+					NL = false
+				} else {
+					if(testNL(input1)) {
+						$("#nltips").html("")
+						NL = true
+					} else {
+						$("#nltips").html("(请输入以19,20开头四位数的年份)")
+						$("#exampleInputPassword1").addClass("dengour")
+						NL = false
+					}
+				}
+			};
+
+			function pageTurn(type) {
+				if(type == "i") {
+					window.location.href = "index.html"
+				} else if(type == "m") {
+					window.location.href = "machineConnection.html"
+				} else {
+					window.location.href = "admin/dataList.htm"
+				}
+			};
+
+			function quxiaozhukong() {
+
+				$.ajax({
+					type: "post",
+					dataType: "json",
+					url: localWebUrl + "json/cancelControl.htm",
+					data: {},
+					success: function(data) {
+						if (data.status == 1) {
+						$(".connectStatus").html("当前人体测试机连接状态：断开")
+					}
+					},
+					error: function(XMLHttpRequest, textStatus, errorThrown) {},
+				});
+			};
+			//创建DIV遮层
+			function creatDiv() {
+				$("body").css("overflow", "hidden")
+				var divs = '<div class="conver"><div class="icon"><span id="loading" class="glyphicon glyphicon-refresh"></span> 正在检测。。。</div></div>';
+				$(divs).appendTo($("body"))
+			}
+			//取消DIV遮层
+			function removeDiv() {
+				$("body").css("overflow", "visible")
+				$(".conver").remove()
+			}
+		</script>
+	</body>
+
+</html>

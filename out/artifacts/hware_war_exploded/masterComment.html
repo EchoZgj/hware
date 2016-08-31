@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+	<title>专家评论</title>
+	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
+	<link rel="stylesheet" type="text/css" href="css/bootstrap-theme.min.css" />
+	<style type="text/css">
+		html,
+		body {
+			font-family: "微软雅黑";
+			height: 100%;
+		}
+
+		.container {
+			position: relative;
+			height: 100%;
+		}
+
+		.header {
+			padding-left: 40px;
+			overflow: hidden;
+			width: 100%;
+			background-color: rgba(0, 191, 255, 0.2);
+		}
+
+		.form-group {
+			margin-top: 5px;
+			margin-bottom: 10px;
+		}
+
+		label {
+			font-size: 20px;
+		}
+
+		.dengour {
+			border-color: red;
+			box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px rgba(255, 0, 0, 0.6);
+		}
+
+		.form-control {
+			width: 30%;
+		}
+
+		.test-result {
+			height: 740px;
+			left: 50%;
+			position: absolute;
+			right: 15px;
+			top: 85px;
+			background-color: #fff;
+			background-image: none;
+			border: 1px solid #ccc;
+			border-radius: 4px;
+		}
+
+		.table {
+			margin-top: 20px;
+			margin-bottom: 10px;
+		}
+
+		.table-hover> tbody>tr:hover {
+			background-color: rgba(0, 191, 255, 0.1);
+		}
+
+		.test-info {
+			display: none;
+			overflow: hidden;
+			background-color: #fff;
+			background-image: none;
+			border: 1px solid #ccc;
+			border-radius: 4px;
+			bottom: 30px;
+			left: 15px;
+			position: absolute;
+			right: 70%;
+			top: 490px;
+		}
+
+		.test {
+			position: relative;
+			margin-top: 5px;
+			width: 100%;
+			height: 37px;
+			font-size: 20px;
+			border-bottom: 1px solid #ccc;
+		}
+
+		.name-text,
+		.ID-text,
+		.time-text,
+		.gender-text,
+		.age-text,
+		.height-text {
+			margin-left: 20px;
+			font-size: 16px;
+		}
+
+		.name-value,
+		.ID-value,
+		.time-value,
+		.gender-value,
+		.age-value,
+		.height-value {
+			margin-left: 20px;
+		}
+
+		h3 {
+			text-align: center;
+		}
+
+		.body-style {
+			font-size: 0;
+			position: relative;
+			margin: 0;
+			width: 101%;
+			height: 129px;
+			border-top: 1px solid #ccc;
+		}
+
+		.bodytype {
+			margin: 0;
+			border-right: 1px solid #ccc;
+			border-bottom: 1px solid #ccc;
+			display: inline-block;
+			vertical-align: middle;
+			position: relative;
+			width: 33.3333%;
+			height: 33%;
+			line-height: 43px;
+			font-size: 16px;
+			text-align: center;
+		}
+
+		.check {
+			background-color: #00bfff;
+			color: #fff;
+		}
+
+		.ID-value {
+			margin-left: 67px;
+		}
+
+		#searchBtn {
+			margin-left: 70px;
+		}
+
+		ul {
+			margin: 0;
+			padding: 0;
+		}
+
+		li {
+			float: left;
+			list-style: none;
+			font-weight: bold;
+			font-size: 24px;
+			color: #00BFFF;
+			cursor: pointer;
+		}
+
+		.h2small:hover,
+		li:hover {
+			color: #C0C0C0;
+		}
+
+		.li2 {
+			margin-left: 20px;
+		}
+
+		.h2small {
+			font-size: 20px;
+			color: #333;
+		}
+
+		h3 {
+			margin-top: 10px;
+		}
+
+		.commentInput {
+			position: absolute;
+			top: 85px;
+			left: 15px;
+			width: 47%;
+			height: 200px;
+			background-color: #FFFFFF;
+			border: 1px solid #ccc;
+			border-radius: 4px;
+			overflow: hidden;
+		}
+
+		textarea {
+			display: block;
+			width: 100%;
+			height: 100%;
+			top: 0;
+			bottom: 0;
+			left: 0;
+			right: 0;
+			border: none;
+			outline: none;
+			position: absolute;
+			padding: 10px;
+			word-break: break-all;
+			text-align: justify;
+			resize: none;
+			font-size: 16px;
+		}
+
+		.submitBtn {
+			position: absolute;
+			left: 15px;
+			top: 300px;
+		}
+
+		.user-info {
+			background-color: #ffffff;
+			border: 1px solid #ccc;
+			border-radius: 4px;
+			/*height: 200px;*/
+			left: 15px;
+			overflow: hidden;
+			position: absolute;
+			top: 400px;
+			width: 47%;
+			height: 427px;
+		}
+
+		.usrbodytype,
+		.usrheight,
+		.usrage,
+		.usrsex,
+		.usrname {
+			position: relative;
+			widows: 100%;
+			height: 50px;
+			border-bottom: 1px solid #ccc;
+		}
+
+		.usrbodytype {
+			height: 226px;
+		}
+
+		.usrbodytype .name {
+			line-height: 226px;
+			height: 226px;
+		}
+
+		.usrbodytype .value {
+			height: 226px;
+		}
+
+		.name {
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 30%;
+			height: 50px;
+			line-height: 50px;
+			text-align: center;
+			font-size: 18px;
+			border-right: 1px solid #ccc;
+		}
+
+		.value {
+			position: absolute;
+			top: 0;
+			left: 30%;
+			width: 70%;
+			height: 50px;
+			line-height: 50px;
+			text-align: center;
+			font-size: 18px;
+		}
+
+		.rowBodyType {
+			position: relative;
+			width: 100%;
+			height: 33.33%;
+			border-bottom: 1px solid #ccc;
+		}
+
+		.rowBodyTypeTdC,
+		.rowBodyTypeTdB,
+		.rowBodyTypeTdA {
+			position: absolute;
+			width: 33.33%;
+			height: 100%;
+			border-right: 1px solid #ccc;
+			line-height: 75px;
+			text-align: center;
+			font-size: 18px;
+		}
+
+		.rowBodyTypeTdB {
+			left: 33.33%;
+		}
+
+		.rowBodyTypeTdC {
+			left: 66.66%;
+			border-right: 1px solid transparent;
+		}
+
+		.choesType {
+			background-color: #00bfff;
+			color: #FFFFFF;
+		}
+	</style>
+</head>
+
+<body>
+<div class="container">
+	<div class="header">
+		<ul>
+			<li class="li1">
+				<h1><font class="h1">专家评论</font></h1></li>
+			<li class="li2">
+				<h1><font class="h1 h2small" onclick="pageTurn()">返回</font></h1></li>
+		</ul>
+	</div>
+	<div class="user-info">
+		<div class="usrname">
+			<div class="name">
+				用户姓名
+			</div>
+			<div class="value">
+			</div>
+		</div>
+		<div class="usrsex">
+			<div class="name">
+				性别
+			</div>
+			<div class="value">
+			</div>
+		</div>
+		<div class="usrage">
+			<div class="name">
+				年龄
+			</div>
+			<div class="value">
+			</div>
+		</div>
+		<div class="usrheight">
+			<div class="name">
+				年龄
+			</div>
+			<div class="value">
+			</div>
+		</div>
+		<div class="usrbodytype">
+			<div class="name">
+				体型判定
+			</div>
+			<div class="value">
+				<div id="" class="rowBodyType">
+					<div id="TYPE1" class="rowBodyTypeTdA">
+						隐形肥胖型
+					</div>
+					<div id="TYPE2" class="rowBodyTypeTdB">
+						脂肪过多型
+					</div>
+					<div id="TYPE3" class="rowBodyTypeTdC">
+						肥胖型
+					</div>
+				</div>
+				<div id="" class="rowBodyType">
+					<div id="TYPE4" class="rowBodyTypeTdA">
+						肌肉不足型
+					</div>
+					<div id="TYPE5" class="rowBodyTypeTdB">
+						健康匀称型
+					</div>
+					<div id="TYPE6" class="rowBodyTypeTdC">
+						超重肌肉型
+					</div>
+				</div>
+				<div id="" class="rowBodyType">
+					<div id="TYPE7" class="rowBodyTypeTdA">
+						消瘦型
+					</div>
+					<div id="TYPE8" class="rowBodyTypeTdB">
+						低脂肪型
+					</div>
+					<div id="TYPE9" class="rowBodyTypeTdC">
+						运动员型
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="test-result table-responsive">
+		<table class="table table-hover">
+			<thead>
+			<tr>
+				<th>序号</th>
+				<th>项目</th>
+				<th>测量值</th>
+			</tr>
+			</thead>
+			<tbody>
+			<tr>
+				<th scope="row">1</th>
+				<td>体重</td>
+				<td id="weight"></td>
+			</tr>
+			<tr>
+				<th scope="row">2</th>
+				<td>去脂体重</td>
+				<td id="slimWeight"></td>
+			</tr>
+			<tr>
+				<th scope="row">3</th>
+				<td>体脂肪量</td>
+				<td id="fat"></td>
+			</tr>
+			<tr>
+				<th scope="row">4</th>
+				<td>肌肉量</td>
+				<td id="muscle"></td>
+			</tr>
+			<tr>
+				<th scope="row">5</th>
+				<td>骨质量</td>
+				<td id="bone"></td>
+			</tr>
+			<tr>
+				<th scope="row">6</th>
+				<td>蛋白质</td>
+				<td id="protein"></td>
+			</tr>
+			<tr>
+				<th scope="row">7</th>
+				<td>身体水分</td>
+				<td id="bodywater"></td>
+			</tr>
+			<tr>
+				<th scope="row">8</th>
+				<td>体脂百分比</td>
+				<td id="ratioFat"></td>
+			</tr>
+			<tr>
+				<th scope="row">9</th>
+				<td>体质指数</td>
+				<td id="BMI"></td>
+			</tr>
+			<tr>
+				<th scope="row">10</th>
+				<td>腰臀比</td>
+				<td id="ratioHip"></td>
+			</tr>
+			<tr>
+				<th scope="row">11</th>
+				<td>内脏脂肪</td>
+				<td id="internalFat"></td>
+			</tr>
+			<tr>
+				<th scope="row">12</th>
+				<td>控制脂肪</td>
+				<td id="fatControl"></td>
+			</tr>
+			<tr>
+				<th scope="row">13</th>
+				<td>标准体重</td>
+				<td id="criteriaWeight"></td>
+			</tr>
+			<tr>
+				<th scope="row">14</th>
+				<td>控制肌肉</td>
+				<td id="muscleControl"></td>
+			</tr>
+			<tr>
+				<th scope="row">15</th>
+				<td>控制体重</td>
+				<td id="weightControl"></td>
+			</tr>
+			<tr>
+				<th scope="row">16</th>
+				<td>生理年龄</td>
+				<td id="bodyAge"></td>
+			</tr>
+			<tr>
+				<th scope="row">17</th>
+				<td>基础代谢</td>
+				<td id="baseMetabolize"></td>
+			</tr>
+			<tr>
+				<th scope="row">18</th>
+				<td>健康评分</td>
+				<td id="score"></td>
+			</tr>
+			</tbody>
+		</table>
+	</div>
+	<form method="post" action="" id="form1">
+		<input type="hidden" name="id" id="userId" value="">
+		<div class="commentInput">
+				<textarea name="comment">
+				</textarea>
+		</div>
+		<!--<div class="submitBtn btn btn-info btn-lg">
+			提交点评
+		</div>-->
+	</form>
+</div>
+<script src="js/config.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/jquery.1.11.3.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+	var hree = window.location.href;
+	var aid = hree.split("?")[1].split("=")[1]
+	$(function() {
+		//获得用户详细信息
+		getUserInfo(aid)
+		$("textarea").val("");
+
+		$(".submitBtn").on("click", function() {
+			if($("textarea").html().length>450){
+				alert("评论字数不能超过450个字符！");
+				return;
+			}
+			$("#userId").val(aid);
+			$("#form1").attr("action",localWebUrl+"/saveComment.htm");
+
+			$("#form1").submit();
+		})
+	});
+	//对数字做验证
+
+	function pageTurn(type) {
+		window.location.href =localWebUrl+ "/admin/dataList.htm"
+	};
+	//获得用户详细信息
+	function getUserInfo(aid) {
+		$.ajax({
+			type: "post",
+			dataType: "json",
+			url: localWebUrl + "json/dataInfo.htm",
+			data: {
+				"id": aid
+			},
+			success: function(data) {
+				console.log(data)
+				//体重
+				$("#weight").html(data.testdata.weight + "kg");
+				//去脂体重
+				$("#slimWeight").html(((data.testdata.weight) * 1 - (data.testdata.fat) * 1).toFixed(1) + "kg")
+				//体脂肪量
+				$("#fat").html(data.testdata.fat + "kg")
+				//肌肉量
+				$("#muscle").html(data.testdata.muscle + "kg")
+				//骨质量
+				$("#bone").html(data.testdata.bone + "kg")
+				//蛋白质
+				$("#protein").html(data.testdata.protein + "kg")
+				//身体水分
+				$("#bodywater").html(((data.testdata.interFluid) * 1 + (data.testdata.outFluid) * 1).toFixed(1) + "kg")
+				//体脂百分比
+				$("#ratioFat").html(data.testdata.ratioFat + "%")
+				//体质指数
+				$("#BMI").html(data.testdata.bmi+"BMI")
+				//腰臀比
+				$("#ratioHip").html(data.testdata.ratioHip)
+				//内脏脂肪internalFat
+				$("#internalFat").html(data.testdata.internalFat + "VFI")
+				//控制脂肪fatControl
+				$("#fatControl").html(data.testdata.fatControl + "kg")
+				//标准体重criteriaWeight
+				$("#criteriaWeight").html(data.testdata.criteriaWeight + "kg")
+				//控制体重weightControl
+				$("#weightControl").html(data.testdata.weightControl + "kg")
+				//基础代谢baseMetabolize
+				$("#baseMetabolize").html(data.testdata.baseMetabolize + "cal")
+				//健康评分score
+				$("#score").html(data.testdata.score)
+				//控制肌肉muscleControl
+				$("#muscleControl").html(data.testdata.muscleControl + "kg")
+				//生理年纪bodyAge
+				$("#bodyAge").html(data.testdata.bodyAge+"岁")
+				//----------------
+				//用户姓名
+				$(".usrname .value").html(data.user.userName)
+				//用户性别
+				if(data.user.sex == 0) {
+					$(".usrsex .value").html("男")
+				} else {
+					$(".usrsex .value").html("女")
+				}
+				//用户年纪
+				$(".usrage .value").html(data.user.age)
+				//用户身高
+				$(".usrheight .value").html(data.user.height)
+				//用户身体类型
+				$("#TYPE" + data.user.bodyConfirm).addClass("choesType")
+				//添加当前用户评论
+				$(".commentInput textarea").val(data.user.comment)
+			},
+			error: function(XMLHttpRequest, textStatus, errorThrown) {},
+		});
+	}
+</script>
+</body>
+
+</html>

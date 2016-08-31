@@ -1,0 +1,313 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component name="dataSourceStorage">
+  <data-source name="MySQL - @192.168.1.7" uuid="37107699-87f1-4097-ad23-0155bc9e397c">
+    <database-info product="MySQL" version="5.6.26-log" jdbc-version="4.0" driver-name="MySQL Connector Java" driver-version="mysql-connector-java-5.1.35 ( Revision: 5fb9c5849535c13917c2cf9baaece6ef9693ef27 )">
+      <extra-name-characters>#@</extra-name-characters>
+      <identifier-quote-string>`</identifier-quote-string>
+    </database-info>
+    <case-sensitivity plain-identifiers="lower" quoted-identifiers="lower"/>
+    <schema name="" catalog="zxzh"/>
+    <table name="article" schema="" catalog="zxzh" type="TABLE">
+      <column name="Id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="title" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="eid" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <primary-key name="PRIMARY" columns="Id"/>
+    </table>
+    <table name="bd_acount" schema="" catalog="zxzh" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" def="MA=="/>
+      <column name="sp_no" sqlType="VARCHAR" precision="100" scale="0" nullable="true" jdbcType="12"/>
+      <column name="sp_secret" sqlType="VARCHAR" precision="100" scale="0" nullable="true" jdbcType="12"/>
+      <column name="cid" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <primary-key name="PRIMARY" columns="id"/>
+    </table>
+    <table name="book" schema="" catalog="zxzh" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="name" sqlType="VARCHAR" precision="20" scale="0" nullable="true" jdbcType="12"/>
+      <column name="path" sqlType="VARCHAR" precision="100" scale="0" nullable="true" jdbcType="12"/>
+      <column name="type" sqlType="VARCHAR" precision="30" scale="0" nullable="true" jdbcType="12"/>
+      <column name="cid" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="pid" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="js" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="status" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4" def="MQ=="/>
+      <column name="sort" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4" def="MA=="/>
+      <primary-key name="PRIMARY" columns="id"/>
+    </table>
+    <table name="bus_pri" schema="" catalog="zxzh" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="pid" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="kc" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="vers" sqlType="VARCHAR" precision="32" scale="0" nullable="false" jdbcType="12"/>
+      <column name="color" sqlType="VARCHAR" precision="100" scale="0" nullable="true" jdbcType="12"/>
+      <column name="price" sqlType="DECIMAL" precision="8" scale="2" nullable="true" jdbcType="3"/>
+      <primary-key name="PRIMARY" columns="id"/>
+    </table>
+    <table name="business" schema="" catalog="zxzh" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" def="MA=="/>
+      <column name="zz" sqlType="TEXT" precision="65535" scale="0" nullable="true" jdbcType="-1"/>
+      <column name="zc" sqlType="TEXT" precision="65535" scale="0" nullable="true" jdbcType="-1"/>
+      <column name="cid" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <primary-key name="PRIMARY" columns="id"/>
+    </table>
+    <table name="com_the" schema="" catalog="zxzh" type="TABLE">
+      <column name="cid" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" def="MA=="/>
+      <column name="tid" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" def="MA=="/>
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <primary-key name="PRIMARY" columns="id"/>
+    </table>
+    <table name="company" schema="" catalog="zxzh" type="TABLE">
+      <column name="Id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="name" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="qq" sqlType="VARCHAR" precision="30" scale="0" nullable="true" jdbcType="12"/>
+      <column name="service" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12" remarks="5pyN5Yqh5a6X5peo"/>
+      <column name="info" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12" remarks="566A5LuL"/>
+      <column name="urlPath" sqlType="VARCHAR" precision="10" scale="0" nullable="true" jdbcType="12"/>
+      <column name="phone" sqlType="VARCHAR" precision="20" scale="0" nullable="true" jdbcType="12"/>
+      <column name="address" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="script" sqlType="TEXT" precision="65535" scale="0" nullable="true" jdbcType="-1"/>
+      <column name="business" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4" def="MA=="/>
+      <column name="theType" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4" def="MQ=="/>
+      <primary-key name="PRIMARY" columns="Id"/>
+    </table>
+    <table name="contact" schema="" catalog="zxzh" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" def="MA=="/>
+      <column name="bz" sqlType="TEXT" precision="65535" scale="0" nullable="true" jdbcType="-1"/>
+      <column name="cid" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <primary-key name="PRIMARY" columns="id"/>
+    </table>
+    <table name="custom" schema="" catalog="zxzh" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="qq" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="tel" sqlType="VARCHAR" precision="30" scale="0" nullable="true" jdbcType="12"/>
+      <column name="cid" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <primary-key name="PRIMARY" columns="id"/>
+    </table>
+    <table name="fileup" schema="" catalog="zxzh" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" def="MA=="/>
+      <column name="path" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="type" sqlType="VARCHAR" precision="10" scale="0" nullable="true" jdbcType="12"/>
+      <column name="cid" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="oid" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="model" sqlType="VARCHAR" precision="40" scale="0" nullable="true" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="id"/>
+    </table>
+    <table name="goods" schema="" catalog="zxzh" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" def="MA=="/>
+      <column name="gname" sqlType="VARCHAR" precision="200" scale="0" nullable="true" jdbcType="12"/>
+      <column name="listimg" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="dimg" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="cid" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="status" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4" def="MA=="/>
+      <column name="price" sqlType="VARCHAR" precision="64" scale="0" nullable="false" jdbcType="12"/>
+      <column name="vers" sqlType="VARCHAR" precision="32" scale="0" nullable="true" jdbcType="12"/>
+      <column name="ms" sqlType="TEXT" precision="65535" scale="0" nullable="true" jdbcType="-1"/>
+      <column name="snum" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4" def="MA=="/>
+      <column name="his" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4" def="MA=="/>
+      <primary-key name="PRIMARY" columns="id"/>
+    </table>
+    <table name="homepage" schema="" catalog="zxzh" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" def="MA=="/>
+      <column name="img1" sqlType="VARCHAR" precision="300" scale="0" nullable="true" jdbcType="12"/>
+      <column name="img2" sqlType="VARCHAR" precision="300" scale="0" nullable="true" jdbcType="12"/>
+      <column name="img3" sqlType="VARCHAR" precision="300" scale="0" nullable="true" jdbcType="12"/>
+      <column name="img4" sqlType="VARCHAR" precision="300" scale="0" nullable="true" jdbcType="12"/>
+      <column name="cid" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="num" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <primary-key name="PRIMARY" columns="id"/>
+    </table>
+    <table name="news" schema="" catalog="zxzh" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="title" sqlType="VARCHAR" precision="100" scale="0" nullable="true" jdbcType="12"/>
+      <column name="status" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="updatetime" sqlType="DATE" precision="10" scale="0" nullable="false" jdbcType="91"/>
+      <column name="cid" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="zy" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="id"/>
+    </table>
+    <table name="newscontext" schema="" catalog="zxzh" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="context" sqlType="TEXT" precision="65535" scale="0" nullable="false" jdbcType="-1"/>
+      <column name="readnum" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="nid" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <primary-key name="PRIMARY" columns="id"/>
+    </table>
+    <table name="orderform" schema="" catalog="zxzh" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="cid" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="gid" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="goodsname" sqlType="VARCHAR" precision="100" scale="0" nullable="false" jdbcType="12"/>
+      <column name="goodskind" sqlType="VARCHAR" precision="200" scale="0" nullable="false" jdbcType="12"/>
+      <column name="uid" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="phone" sqlType="VARCHAR" precision="20" scale="0" nullable="false" jdbcType="12" def="Jyc="/>
+      <column name="price" sqlType="VARCHAR" precision="20" scale="0" nullable="false" jdbcType="12"/>
+      <column name="num" sqlType="VARCHAR" precision="10" scale="0" nullable="false" jdbcType="12"/>
+      <column name="totalprice" sqlType="VARCHAR" precision="30" scale="0" nullable="false" jdbcType="12"/>
+      <column name="status" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" def="MA=="/>
+      <column name="cretime" sqlType="DATE" precision="10" scale="0" nullable="false" jdbcType="91"/>
+      <column name="updatetime" sqlType="DATE" precision="10" scale="0" nullable="false" jdbcType="91"/>
+      <column name="order_no" sqlType="VARCHAR" precision="30" scale="0" nullable="false" jdbcType="12"/>
+      <column name="username" sqlType="VARCHAR" precision="30" scale="0" nullable="false" jdbcType="12"/>
+      <column name="adress" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="id"/>
+    </table>
+    <table name="product" schema="" catalog="zxzh" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" def="MA=="/>
+      <column name="name" sqlType="VARCHAR" precision="50" scale="0" nullable="true" jdbcType="12"/>
+      <column name="status" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="cid" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <primary-key name="PRIMARY" columns="id"/>
+    </table>
+    <table name="producttext" schema="" catalog="zxzh" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" def="MA=="/>
+      <column name="cs" sqlType="TEXT" precision="65535" scale="0" nullable="true" jdbcType="-1"/>
+      <column name="xq" sqlType="TEXT" precision="65535" scale="0" nullable="true" jdbcType="-1"/>
+      <column name="pid" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <primary-key name="PRIMARY" columns="id"/>
+    </table>
+    <table name="role" schema="" catalog="zxzh" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" def="MA=="/>
+      <column name="rolename" sqlType="VARCHAR" precision="30" scale="0" nullable="true" jdbcType="12"/>
+      <column name="status" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="bj" sqlType="VARCHAR" precision="20" scale="0" nullable="true" jdbcType="12"/>
+      <column name="type" sqlType="VARCHAR" precision="30" scale="0" nullable="true" jdbcType="12"/>
+      <column name="sort" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4" def="MA=="/>
+      <primary-key name="PRIMARY" columns="id"/>
+    </table>
+    <table name="role_book" schema="" catalog="zxzh" type="TABLE">
+      <column name="rid" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" def="MA=="/>
+      <column name="bid" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" def="MA=="/>
+      <primary-key name="PRIMARY" columns="rid,bid"/>
+    </table>
+    <table name="sales" schema="" catalog="zxzh" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="jiontime" sqlType="VARCHAR" precision="100" scale="0" nullable="false" jdbcType="12"/>
+      <column name="zg" sqlType="VARCHAR" precision="200" scale="0" nullable="false" jdbcType="12"/>
+      <column name="info" sqlType="TEXT" precision="65535" scale="0" nullable="false" jdbcType="-1"/>
+      <column name="status" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="cid" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="title" sqlType="VARCHAR" precision="100" scale="0" nullable="false" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="id"/>
+    </table>
+    <table name="secret" schema="" catalog="zxzh" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" def="MA=="/>
+      <column name="bkey" sqlType="VARCHAR" precision="100" scale="0" nullable="true" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="id"/>
+    </table>
+    <table name="the_type" schema="" catalog="zxzh" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" def="MA=="/>
+      <column name="name" sqlType="VARCHAR" precision="30" scale="0" nullable="false" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="id"/>
+    </table>
+    <table name="theme" schema="" catalog="zxzh" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="name" sqlType="VARCHAR" precision="100" scale="0" nullable="true" jdbcType="12"/>
+      <column name="status" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="url" sqlType="VARCHAR" precision="200" scale="0" nullable="true" jdbcType="12"/>
+      <column name="pic" sqlType="VARCHAR" precision="200" scale="0" nullable="true" jdbcType="12"/>
+      <column name="img" sqlType="VARCHAR" precision="200" scale="0" nullable="true" jdbcType="12"/>
+      <column name="type" sqlType="VARCHAR" precision="20" scale="0" nullable="true" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="id"/>
+    </table>
+    <table name="user" schema="" catalog="zxzh" type="TABLE">
+      <column name="Id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="name" sqlType="VARCHAR" precision="32" scale="0" nullable="true" jdbcType="12"/>
+      <column name="password" sqlType="VARCHAR" precision="64" scale="0" nullable="true" jdbcType="12"/>
+      <column name="nickname" sqlType="VARCHAR" precision="64" scale="0" nullable="true" jdbcType="12"/>
+      <column name="phone" sqlType="VARCHAR" precision="20" scale="0" nullable="true" jdbcType="12"/>
+      <column name="mail" sqlType="VARCHAR" precision="64" scale="0" nullable="true" jdbcType="12"/>
+      <column name="auth" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="status" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="cid" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <primary-key name="PRIMARY" columns="Id"/>
+    </table>
+    <table name="user1" schema="" catalog="zxzh" type="TABLE">
+      <column name="Id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="name" sqlType="VARCHAR" precision="32" scale="0" nullable="true" jdbcType="12"/>
+      <column name="password" sqlType="VARCHAR" precision="64" scale="0" nullable="true" jdbcType="12"/>
+      <column name="nickname" sqlType="VARCHAR" precision="64" scale="0" nullable="true" jdbcType="12"/>
+      <column name="phone" sqlType="VARCHAR" precision="20" scale="0" nullable="true" jdbcType="12"/>
+      <column name="mail" sqlType="VARCHAR" precision="64" scale="0" nullable="true" jdbcType="12"/>
+      <column name="auth" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="status" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="cid" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <primary-key name="PRIMARY" columns="Id"/>
+    </table>
+    <table name="user_role" schema="" catalog="zxzh" type="TABLE">
+      <column name="uid" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" def="MA=="/>
+      <column name="rid" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" def="MA=="/>
+      <primary-key name="PRIMARY" columns="uid,rid"/>
+    </table>
+    <table name="wx_acount" schema="" catalog="zxzh" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" def="MA=="/>
+      <column name="appid" sqlType="VARCHAR" precision="30" scale="0" nullable="true" jdbcType="12"/>
+      <column name="appsecret" sqlType="VARCHAR" precision="100" scale="0" nullable="true" jdbcType="12"/>
+      <column name="cid" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="mch_id" sqlType="VARCHAR" precision="50" scale="0" nullable="true" jdbcType="12"/>
+      <column name="key" sqlType="VARCHAR" precision="32" scale="0" nullable="true" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="id"/>
+    </table>
+    <table name="wx_token" schema="" catalog="zxzh" type="TABLE">
+      <column name="id" sqlType="VARCHAR" precision="32" scale="0" nullable="false" jdbcType="12" def="Jyc="/>
+      <column name="token" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="tick" sqlType="VARCHAR" precision="200" scale="0" nullable="true" jdbcType="12"/>
+      <column name="cid" sqlType="VARCHAR" precision="32" scale="0" nullable="true" jdbcType="12"/>
+      <column name="expirse" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="cretime" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <primary-key name="PRIMARY" columns="id"/>
+    </table>
+  </data-source>
+  <data-source name="MySQL - hware@192.168.1.7" uuid="8fdebfc5-cb2b-49d0-ab57-e582c612e65f">
+    <database-info product="MySQL" version="5.6.26-log" jdbc-version="4.0" driver-name="MySQL Connector Java" driver-version="mysql-connector-java-5.1.35 ( Revision: 5fb9c5849535c13917c2cf9baaece6ef9693ef27 )">
+      <extra-name-characters>#@</extra-name-characters>
+      <identifier-quote-string>`</identifier-quote-string>
+    </database-info>
+    <case-sensitivity plain-identifiers="lower" quoted-identifiers="lower"/>
+    <schema name="" catalog="hware"/>
+    <table name="measure" schema="" catalog="hware" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="user_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" remarks="5Y676ISC6IKq6YeP"/>
+      <column name="fatting_weight" sqlType="DOUBLE" precision="10" scale="1" nullable="true" jdbcType="8"/>
+      <column name="fat_weight" sqlType="DOUBLE" precision="10" scale="1" nullable="true" jdbcType="8" remarks="5L2T6ISC6IKq6YeP"/>
+      <column name="muscle_weight" sqlType="DOUBLE" precision="10" scale="1" nullable="true" jdbcType="8" remarks="6IKM6IKJ6YeP"/>
+      <column name="bone_weight" sqlType="DOUBLE" precision="10" scale="2" nullable="true" jdbcType="8" remarks="6aqo6LSo6YeP"/>
+      <column name="protein_weight" sqlType="DOUBLE" precision="10" scale="1" nullable="true" jdbcType="8" remarks="6JuL55m96LSo"/>
+      <column name="water_weight" sqlType="DOUBLE" precision="10" scale="1" nullable="true" jdbcType="8" remarks="6Lqr5L2T5rC05YiG"/>
+      <column name="ratio_fat" sqlType="DOUBLE" precision="10" scale="3" nullable="true" jdbcType="8" remarks="5L2T6ISC55m+5YiG5q+U"/>
+      <column name="index_fat" sqlType="DOUBLE" precision="10" scale="1" nullable="true" jdbcType="8" remarks="5L2T6LSo5oyH5pWw"/>
+      <column name="ratio_hip" sqlType="DOUBLE" precision="10" scale="2" nullable="true" jdbcType="8" remarks="6IWw6IeA5q+U"/>
+      <column name="flag" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <primary-key name="PRIMARY" columns="id"/>
+    </table>
+    <table name="result" schema="" catalog="hware" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="user_no" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="internal_fat" sqlType="DOUBLE" precision="10" scale="1" nullable="true" jdbcType="8" remarks="5YaF6ISP6ISC6IKq"/>
+      <column name="standard_weight" sqlType="DOUBLE" precision="10" scale="1" nullable="true" jdbcType="8" remarks="5qCH5YeG5L2T6YeN"/>
+      <column name="control_weight" sqlType="DOUBLE" precision="10" scale="1" nullable="true" jdbcType="8" remarks="5o6n5Yi25L2T6YeN"/>
+      <column name="base_metabolize" sqlType="DOUBLE" precision="10" scale="1" nullable="true" jdbcType="8" remarks="5Z+656GA5Luj6LCi"/>
+      <column name="control_fat" sqlType="DOUBLE" precision="10" scale="1" nullable="true" jdbcType="8" remarks="5o6n5Yi25L2T6YeN"/>
+      <column name="control_muscle" sqlType="DOUBLE" precision="10" scale="1" nullable="true" jdbcType="8" remarks="5o6n5Yi26IKM6IKJ"/>
+      <column name="ph_age" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4" remarks="55Sf55CG5bm06b6E"/>
+      <column name="health_grade" sqlType="DOUBLE" precision="10" scale="1" nullable="true" jdbcType="8" remarks="5YGl5bq36K+E5YiG"/>
+      <column name="falg" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <primary-key name="PRIMARY" columns="id"/>
+    </table>
+    <table name="user" schema="" catalog="hware" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="user_no" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" remarks="55So5oi357yW5Y+3"/>
+      <column name="user_name" sqlType="VARCHAR" precision="20" scale="0" nullable="true" jdbcType="12" remarks="55So5oi35ZCN5a2X"/>
+      <column name="sex" sqlType="TINYINT" precision="3" scale="0" nullable="false" jdbcType="-6" def="MA==" remarks="MOeUt++8jDHlpbM="/>
+      <column name="phone" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="age" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="height" sqlType="DOUBLE" precision="10" scale="0" nullable="false" jdbcType="8" remarks="6Lqr6auY"/>
+      <column name="flag" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="measure_date" sqlType="VARCHAR" precision="20" scale="0" nullable="false" jdbcType="12" def="J0NVUlJFTlRfVElNRVNUQU1QJw==" remarks="5rWL6YeP5pe26Ze0"/>
+      <column name="measure_time" sqlType="VARCHAR" precision="20" scale="0" nullable="false" jdbcType="12" def="JzAwMDAtMDAtMDAgMDA6MDA6MDAn" remarks="5rWL6YeP6K6h5pe2"/>
+      <column name="weight" sqlType="DOUBLE" precision="10" scale="1" nullable="false" jdbcType="8" remarks="5L2T6YeN"/>
+      <column name="body_confirm" sqlType="TINYINT" precision="3" scale="0" nullable="false" jdbcType="-6" remarks="5L2T5Z6L5Yik5a6aKDDlgaXlurfvvIwx6ZqQ5b2i6IKl6IOW77yMMuiEguiCqui/h+Wkmu+8jDPogqXog5blnovvvIw06IKM6IKJ5LiN6Laz5Z6L77yMNei2hemHjeiCjOiCieWei++8jDbmtojnmKblnovvvIw35L2O6ISC5Z6L77yMOOi/kOWKqOWeiyk="/>
+      <column name="address" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="comment" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <index name="user_no" unique="true" columns="user_no"/>
+    </table>
+  </data-source>
+</component>

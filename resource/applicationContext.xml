@@ -1,0 +1,441 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx" xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd
+	http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd
+	http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+
+
+    <!-- 配置数据源 -->
+    <bean id="dataSource"
+          class="org.apache.commons.dbcp.BasicDataSource"
+          destroy-method="close">
+        <property name="driverClassName" value="${driverClassName}" />
+        <property name="url" value="${url}" />
+        <property name="username" value="${username}" />
+        <property name="password" value="${password}" />
+        <property name="initialSize" value="${initialSize}" />
+        <property name="maxActive" value="${maxActive}" />
+        <property name="maxIdle" value="${maxIdle}" />
+        <property name="minIdle" value="${minIdle}" />
+    </bean>
+
+       <!-- 启动Spring MVC的注解功能，完成请求和注解POJO的映射
+           <bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter" />    -->
+       <!--文件上传设置-->
+       <bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+              <property name="dataSource" ref="dataSource"/>
+
+              <property name="hibernateProperties">
+                     <props>
+                            <prop key="hibernate.dialect">
+                                   org.hibernate.dialect.MySQL5Dialect
+                            </prop>
+
+<!--
+                            <prop key="hibernate.dialect">com.hware.util.ZJCMySQLDialect</prop>
+-->
+                            <prop key="hibernate.transaction.flush_before_completion">
+                                   false
+                            </prop>
+                            <prop key="hibernate.default_batch_fetch_size">8</prop>
+                            <prop key="hibernate.order_updates">true</prop>
+
+                            <prop key="hibernate.connection.release_mode">
+                                   auto
+                            </prop>
+                            <prop key="hibernate.max_fetch_depth">1</prop>
+                            <prop key="hibernate.jdbc.fetch_size">50</prop>
+                            <prop key="hibernate.jdbc.batch_size">25</prop>
+                            <!--  <prop key="hibernate.hbm2ddl.auto">create-drop</prop>-->
+                            <prop key="hibernate.show_sql">false</prop>
+                            <prop key="format_sql">true</prop>
+                         <prop key="hibernate.connection.url">jdbc:mysql://192.168.1.7:3306/hware</prop>
+                         <prop key="hibernate.connection.driver_class">com.mysql.jdbc.Driver</prop>
+
+
+                     </props>
+              </property>
+
+              <property name="packagesToScan" value="com.hware.core.domain"/>
+
+           <!--<property name="annotatedClasses">
+               <list>
+                   <value>com.hware.core.domain.User</value>
+                   <value>com.hware.core.domain.virtual.User</value>
+               </list>
+           </property>-->
+
+
+       </bean>
+
+       <!-- 配置事务管理器 -->
+       <bean id="transactionManager"
+             class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+              <property name="sessionFactory" ref="sessionFactory"/>
+       </bean>
+       <!-- 启用支持Annotation注解方式的事务管理 -->
+       <tx:annotation-driven transaction-manager="transactionManager" />
+       <!-- 把标记了@Controller等注解的类转换为bean -->
+       <context:component-scan base-package="com.hware" />
+
+    <mvc:annotation-driven />
+
+    <!--<mvc:resources location="/static/" mapping="/static/**"/>-->
+
+    <!-- 定义视图解析器 -->
+    <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="prefix" value="/"></property>
+        <property name="suffix" value=""></property>
+    </bean>
+
+    <bean id="multipartResolver"
+          class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <property name="maxUploadSize">
+            <value>10485760</value><!-- 文件上传最大为10M -->
+        </property>
+        <property name="maxInMemorySize" value="4096" />
+    </bean>
+
+    <context:property-placeholder location="classpath:jdbc.properties" />
+    <!--配置velocity engine默认路径-->
+    <!-- <bean id="velocityEngine"
+           class="org.springframework.ui.velocity.VelocityEngineFactoryBean">
+            <property name="resourceLoaderPath" value="/velocity/"></property>
+     </bean>-->
+
+
+    <bean id="genericEntityDao"
+          class="com.hware.core.base.GenericEntityDao" >
+        <property name="sessionFactory"
+                  ref="sessionFactory" />
+    </bean>
+
+
+
+
+    <!--使用泛型DAO作为抽象基类 abstract="true"   -->
+    <bean id="genericDAO" class="com.hware.core.base.GenericDAO"
+          abstract="true" depends-on="genericEntityDao">
+        <property name="geDao">
+            <ref bean="genericEntityDao" />
+        </property>
+    </bean>
+
+
+   <!-- <bean id="userData_Job" class="org.springframework.scheduling.quartz.JobDetailFactoryBean">
+        &lt;!&ndash; durability 表示任务完成之后是否依然保留到数据库，默认false   &ndash;&gt;
+        <property name="durability" value="true" />
+        &lt;!&ndash;     目标类  /wmuitp/src/test/SpringQuartz.java&ndash;&gt;
+        <property name="jobClass" value="com.hware.user.UserDataJob"/>
+
+    </bean>-->
+
+    <bean id="jobUserData"
+          class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+        <!-- 调用的类 -->
+        <property name="targetObject" ref="userData_Job" />
+        <!-- 调用类中的方法 -->
+        <property name="targetMethod" value="execute" />
+        <property name="concurrent" value="false" />
+    </bean>
+
+    <bean id="job_FenDa"
+          class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+        <property name="jobDetail" ref="jobUserData" />
+        <property name="cronExpression" value="0 0/1 * * * ?" />
+    </bean>
+
+    <bean id="schdulerFactory" lazy-init="false"
+          class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+        <property name="triggers">
+            <list>
+                <ref bean="job_FenDa"/>
+            </list>
+        </property>
+    </bean>
+
+
+
+</beans>
+
+
+
+
+       <!-- 对模型视图名称的解析，即在模型视图名称添加前后缀 -->
+       <!--<bean id="velocityCongfig"
+             class="org.springframework.web.servlet.view.velocity.VelocityConfigurer">
+              <property name="resourceLoaderPath">
+                     <value>/</value>
+              </property>
+              <property name="velocityProperties">
+                     <props>
+                            <prop key="input.encoding">UTF-8</prop>
+                            <prop key="output.encoding ">UTF-8</prop>
+                     </props>
+              </property>
+       </bean>-->
+       <!--<bean id="viewResolver"
+             class="org.springframework.web.servlet.view.velocity.VelocityViewResolver">
+              <property name="viewClass"
+                        value="org.springframework.web.servlet.view.velocity.VelocityView" />
+              <property name="contentType">
+                     <value>text/html;charset=UTF-8</value>
+              </property>
+       </bean>-->
+       <!-- property-placeholder是一个属性遍历器，定位一个属性文件，属性文件存放的是jdbc一些连接数据 -->
+
+       <!--<bean name="entityManagerFactory"
+           class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+           <property name="persistenceXmlLocation"
+               value="classpath:persistence.xml" />
+           <property name="dataSource" ref="dataSource" />
+           <property name="jpaVendorAdapter">
+               <bean
+                   class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
+                   <property name="database" value="MYSQL" />
+                   <property name="showSql" value="false" />
+                   <property name="generateDdl" value="false" />
+               </bean>
+           </property>
+           <property name="jpaProperties">
+               <props>
+                   &lt;!&ndash; 自定义方言 &ndash;&gt;
+                   <prop key="hibernate.dialect">
+                       com.shopping.core.dialect.SystemMySQL5Dialect
+                   </prop>
+                   &lt;!&ndash; 二级缓存配置 &ndash;&gt;
+                   <prop key="hibernate.cache.provider_class">
+                       net.sf.ehcache.hibernate.SingletonEhCacheProvider
+                   </prop>
+                   <prop key="hibernate.cache.use_query_cache">true</prop>
+                   <prop key="hibernate.cache.use_second_level_cache">
+                       true
+                   </prop>
+                   <prop key="hibernate.use_sql_comments">false</prop>
+                   <prop key="hibernate.format_sql">false</prop>
+                   <prop key="hibernate.generate_statistics">true</prop>
+               </props>
+           </property>
+       </bean>-->
+       <!-- 定义了与实体相关的dao -->
+
+
+
+      <!-- <bean id="jedisPoolConfig" class="redis.clients.jedis.JedisPoolConfig">
+              <property name="maxIdle" value="50" />
+              <property name="maxTotal" value="30" />
+              <property name="maxWaitMillis" value="400" />
+              <property name="testOnBorrow" value="false" />
+
+       </bean>
+
+       <bean id="jedisShardInfo" class="redis.clients.jedis.JedisShardInfo">
+              <constructor-arg index="0" value="123.57.151.22" />
+              <constructor-arg index="1" value="6379" type="int"/>
+              <constructor-arg index="2" value="300000000" type="int"/>
+              <property name="password" value="dongkang2015"/>
+       </bean>
+
+       <bean id="jedis" class="redis.clients.jedis.ShardedJedisPool" >
+              <constructor-arg index="0" ref="jedisPoolConfig" />
+              <constructor-arg index="1">
+                     <list>
+                            <ref bean="jedisShardInfo" />
+                     </list>
+              </constructor-arg>
+       </bean>-->
+
+      <!-- &lt;!&ndash; 系统调度控制器 &ndash;&gt;
+       <bean id="statTask"
+             class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+              &lt;!&ndash; 调用的类 &ndash;&gt;
+              <property name="targetObject" ref="shop_stat" />
+              &lt;!&ndash; 调用类中的方法 &ndash;&gt;
+              <property name="targetMethod" value="execute" />
+              <property name="concurrent" value="false" />
+       </bean>
+       <bean id="stat_cronTrigger"
+             class="org.springframework.scheduling.quartz.CronTriggerBean">
+              <property name="jobDetail" ref="statTask" />
+              <property name="cronExpression" value="0 */30 * * * ?" />
+       </bean>
+
+       <bean id="jobShanGou"
+             class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+              &lt;!&ndash; 调用的类 &ndash;&gt;
+              <property name="targetObject" ref="shanGou_job" />
+              &lt;!&ndash; 调用类中的方法 &ndash;&gt;
+              <property name="targetMethod" value="execute" />
+              <property name="concurrent" value="false" />
+       </bean>
+
+       <bean id="job_shanGou"
+             class="org.springframework.scheduling.quartz.CronTriggerBean">
+              <property name="jobDetail" ref="jobShanGou" />
+              <property name="cronExpression" value="0 0/1 * * * ?" />
+       </bean>
+
+
+       <bean id="jobOrderExcel_16"
+             class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+              &lt;!&ndash; 调用的类 &ndash;&gt;
+              <property name="targetObject" ref="orderExcel_16" />
+              &lt;!&ndash; 调用类中的方法 &ndash;&gt;
+              <property name="targetMethod" value="execute" />
+              <property name="concurrent" value="true" />
+       </bean>
+
+       <bean id="job_OrderExcel_16"
+             class="org.springframework.scheduling.quartz.CronTriggerBean">
+              <property name="jobDetail" ref="jobOrderExcel_16" />
+              <property name="cronExpression" value="0 0 16 * * ?" />
+       </bean>
+
+       <bean id="jobOrderExcel_10"
+             class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+              &lt;!&ndash; 调用的类 &ndash;&gt;
+              <property name="targetObject" ref="orderExcel_10" />
+              &lt;!&ndash; 调用类中的方法 &ndash;&gt;
+              <property name="targetMethod" value="execute" />
+              <property name="concurrent" value="true" />
+       </bean>
+
+       <bean id="job_OrderExcel_10"
+             class="org.springframework.scheduling.quartz.CronTriggerBean">
+              <property name="jobDetail" ref="jobOrderExcel_10" />
+              <property name="cronExpression" value="0 0 10 * * ?" />
+       </bean>
+
+
+       <bean id="jobOrderStatus30"
+             class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+              &lt;!&ndash; 调用的类 &ndash;&gt;
+              <property name="targetObject" ref="OrderStatus30" />
+              &lt;!&ndash; 调用类中的方法 &ndash;&gt;
+              <property name="targetMethod" value="execute" />
+              <property name="concurrent" value="true" />
+       </bean>
+
+       <bean id="job_OrderStatus30"
+             class="org.springframework.scheduling.quartz.CronTriggerBean">
+              <property name="jobDetail" ref="jobOrderStatus30" />
+              <property name="cronExpression" value="0 0 0 ? * *" />
+       </bean>
+
+
+       <bean id="jobOrderStatus50"
+             class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+              &lt;!&ndash; 调用的类 &ndash;&gt;
+              <property name="targetObject" ref="OrderStatus50" />
+              &lt;!&ndash; 调用类中的方法 &ndash;&gt;
+              <property name="targetMethod" value="execute" />
+              <property name="concurrent" value="false" />
+       </bean>
+
+       <bean id="job_OrderStatus50"
+             class="org.springframework.scheduling.quartz.CronTriggerBean">
+              <property name="jobDetail" ref="jobOrderStatus50" />
+              <property name="cronExpression" value="0 0 0 ? * * " />
+       </bean>
+
+
+       <bean id="jobcouponInfo2"
+             class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+              &lt;!&ndash; 调用的类 &ndash;&gt;
+              <property name="targetObject" ref="couponInfo2" />
+              &lt;!&ndash; 调用类中的方法 &ndash;&gt;
+              <property name="targetMethod" value="execute" />
+              <property name="concurrent" value="false" />
+       </bean>
+
+       <bean id="job_couponInfo2"
+             class="org.springframework.scheduling.quartz.CronTriggerBean">
+              <property name="jobDetail" ref="jobcouponInfo2" />
+              <property name="cronExpression" value="0 0 0 ? * *" />
+       </bean>
+
+
+       <bean id="jobcancelOrder"
+             class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+              &lt;!&ndash; 调用的类 &ndash;&gt;
+              <property name="targetObject" ref="cancelOrder" />
+              &lt;!&ndash; 调用类中的方法 &ndash;&gt;
+              <property name="targetMethod" value="execute" />
+              <property name="concurrent" value="false" />
+       </bean>
+
+       <bean id="job_cancelOrder"
+             class="org.springframework.scheduling.quartz.CronTriggerBean">
+              <property name="jobDetail" ref="jobcancelOrder" />
+              &lt;!&ndash;<property name="cronExpression" value="0 0/1 * * * ?" />&ndash;&gt;
+              <property name="cronExpression" value="0 0 0 ? * *" />
+       </bean>
+
+
+       <bean id="jobTask"
+             class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+              &lt;!&ndash; 调用的类 &ndash;&gt;
+              <property name="targetObject" ref="shop_job" />
+              &lt;!&ndash; 调用类中的方法 &ndash;&gt;
+              <property name="targetMethod" value="execute" />
+              <property name="concurrent" value="false" />
+       </bean>
+       <bean id="job_cronTrigger"
+             class="org.springframework.scheduling.quartz.CronTriggerBean">
+              <property name="jobDetail" ref="jobTask" />
+              <property name="cronExpression" value="1 0 0 * * ?" />
+       </bean>
+
+
+       <bean id="jobPYP"
+             class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+              &lt;!&ndash; 调用的类 &ndash;&gt;
+              <property name="targetObject" ref="pYP_Job" />
+              &lt;!&ndash; 调用类中的方法 &ndash;&gt;
+              <property name="targetMethod" value="execute" />
+              <property name="concurrent" value="false" />
+       </bean>
+
+       <bean id="job_PYP"
+             class="org.springframework.scheduling.quartz.CronTriggerBean">
+              <property name="jobDetail" ref="jobPYP" />
+              <property name="cronExpression" value="0 0/1 * * * ?" />
+       </bean>
+
+       <bean id="jobFenDa"
+             class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+              &lt;!&ndash; 调用的类 &ndash;&gt;
+              <property name="targetObject" ref="fenDa_Job" />
+              &lt;!&ndash; 调用类中的方法 &ndash;&gt;
+              <property name="targetMethod" value="execute" />
+              <property name="concurrent" value="false" />
+       </bean>
+
+       <bean id="job_FenDa"
+             class="org.springframework.scheduling.quartz.CronTriggerBean">
+              <property name="jobDetail" ref="jobFenDa" />
+              <property name="cronExpression" value="0 0/10 * * * ?" />
+       </bean>
+
+
+       <bean id="schdulerFactory" lazy-init="false"
+             class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+              <property name="triggers">
+                     <list>
+                            <ref bean="job_OrderStatus30" />
+                            <ref bean="job_OrderStatus50" />
+                            <ref bean="job_couponInfo2" />
+                            <ref bean="job_shanGou"/>
+                            <ref bean="job_FenDa"/>
+                            &lt;!&ndash;<ref bean="job_OrderExcel_16"/>
+                            <ref bean="job_OrderExcel_10"/>&ndash;&gt;
+                            <ref bean="job_cancelOrder"/>
+                            &lt;!&ndash;<ref bean="job_PYP"/>&ndash;&gt;
+                     </list>
+              </property>
+       </bean>-->
